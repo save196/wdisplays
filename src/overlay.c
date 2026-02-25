@@ -64,6 +64,8 @@ static void resize(struct wd_output *output) {
     return;
 
   struct wd_head *head = wd_find_head(output->state, output);
+  if (head == NULL)
+    return;
 
   uint32_t screen_width = head->custom_mode.width;
   uint32_t screen_height = head->custom_mode.height;
@@ -144,6 +146,8 @@ void window_map(GtkWidget *widget, gpointer data) {
 gboolean window_draw(GtkWidget *widget, cairo_t *cr, gpointer data) {
   struct wd_output *output = data;
   struct wd_head *head = wd_find_head(output->state, output);
+  if (head == NULL)
+    return TRUE;
 
   GtkStyleContext *style_ctx = gtk_widget_get_style_context(widget);
   GdkRGBA fg;
